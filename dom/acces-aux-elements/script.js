@@ -7,7 +7,7 @@
 // spécifié, ou `null` si aucune correspondance n'est trouvée.
 //
 ///////////
-// SYNXTAXE
+// SYNTAXE
 //
 // element = document.querySelector(sélecteurs);
 // ou
@@ -30,7 +30,7 @@
 // de l'élément qui correspondent au groupe de sélecteurs spécifiés.
 //
 ///////////
-// SYNXTAXE
+// SYNTAXE
 //
 // element = document.querySelectorAll(sélecteurs);
 // ou

@@ -10,7 +10,7 @@
 // séparées par des espaces.
 //
 ///////////
-// SYNXTAXE
+// SYNTAXE
 //
 // const elementClasses = elementNodeReference.classList;
 //
