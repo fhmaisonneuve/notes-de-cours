@@ -45,7 +45,7 @@
 // function handleEvent(event) {
 // 	console.log(event);
 // }
-
+//
 // buttonEl.addEventListener("click", handleEvent);
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,7 @@
 // function handleEvent(event) {
 // 	console.log(event);
 // }
-
+//
 // buttonEl.addEventListener("click", handleEvent);
 // buttonEl.removeEventListener("click", handleEvent);
 //
