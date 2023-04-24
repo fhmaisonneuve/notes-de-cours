@@ -28,16 +28,24 @@
 // La fonction devient une expression de fonction qui est immédiatement
 // exécutée. La variable dans l'expression ne peut pas être atteinte de
 // l'extérieur.
-//
-//
-//
+
+(function () {
+	const prenom = "Barry";
+	console.log(prenom);
+})();
+
 ////////////
 // EXEMPLE 2
 //
 // Affecter l'IIFE à une variable ne la stocke pas mais reçoit son résultat.
-//
-//
-//
+
+const nom = (function () {
+	const prenom = "Suzanne";
+	const nomFamille = "Bobo";
+
+	return `${prenom} ${nomFamille}`;
+})();
+
 ////////////////////////////////////////////////////////////////////////////////
 // RESSOURCES //////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
