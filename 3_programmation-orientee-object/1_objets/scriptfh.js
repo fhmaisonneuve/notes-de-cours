@@ -68,6 +68,20 @@
 // Ainsi, on peut utiliser la notation par crochet pour définir dynamiquement
 // les valeurs ou les noms des membres.
 
+personne3= {
+    nom: "Doe",
+    prenom: "John",
+    salutation: function() {
+        return "Bonjour! Je m'appelle " + this.prenom + " " + this.nom + ".";
+    }
+}
+
+const newProperty = "age";
+personne3[newProperty] = 42;
+console.log(personne3.age);
+
+
+console.log(personne3.salutation());
 
 ////////////////////////////////////////////////////////////////////////////////
 // MOT CLÉ `this`
