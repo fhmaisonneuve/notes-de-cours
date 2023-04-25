@@ -17,6 +17,26 @@
 // contenu de l'objet pour le créer. On distinguera plus tard cette structure
 // des objets instanciés depuis des *classes*.
 
+let personne1 = {};
+// ou
+// let personne1 = new Object();
+
+personne1 = {
+	// données (propriétés)
+	nom: ["Jean", "Martin"],
+	age: 32,
+	sexe: "masculin",
+	passions: ["cuisiner", "skier"],
+
+	// fonctionnalités (méthodes)
+	salutation: function () {
+		// On utilise ici un gabarit de texte (ou template literal, en anglais).
+		return `Bonjour! Je suis ${this.nom[0]}`;
+	},
+	bio: function () {
+		return `${this.nom[0]} ${this.nom[1]} a ${this.age} ans. Il aime ${this.passions[0]} et ${this.passions[1]}.`;
+	},
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // NOTATION AVEC UN POINT
@@ -37,6 +57,15 @@
 // Ici, nous créons un *sous-espace de noms*. Pour accéder à ces éléments, il
 // suffit de chaîner une étape de plus avec un autre point.
 
+const personne2 = {
+	nom: {
+		prenom: "Jean",
+		nomFamille: "Martin",
+	},
+	salutation: function () {
+		return `Bonjour ! Je suis ${this.nom.prenom}.`;
+	},
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // NOTATION AVEC LES CROCHETS
@@ -47,6 +76,15 @@
 //////////
 // EXEMPLE
 
+const personne3 = {
+	nom: {
+		prenom: "Jean",
+		nomFamille: "Martin",
+	},
+	salutation: function () {
+		return `Bonjour ! Je suis ${this["nom"]["prenom"]}.`;
+	},
+};
 
 
 
@@ -61,6 +99,21 @@
 //////////
 // EXEMPLE
 
+let personne4 = {
+	prenom: "Jean",
+	nomFamille: "Martin",
+};
+
+// Modifie un membre
+personne4.nom = {
+	prenom: "Bruno",
+	nomFamille: "Munari",
+};
+
+// Crée un nouveau membre
+personne4.salutation = function () {
+	return `Bonjour ! Je suis ${this["nom"]["prenom"]}.`;
+};
 
 //////////
 // EXEMPLE
@@ -68,6 +121,15 @@
 // Ainsi, on peut utiliser la notation par crochet pour définir dynamiquement
 // les valeurs ou les noms des membres.
 
+const personne5 = {};
+
+const membreNom = "grandeur";
+const membreValeur = 1.75;
+
+personne5[membreNom] = membreValeur;
+personne5.salutation = function () {
+	return `Bonjour ! Je mesure ${this.grandeur} mètres.`;
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // MOT CLÉ `this`
@@ -87,6 +149,21 @@
 //
 // Prenez le code suivant :
 
+const personne6 = {
+	nom: "Françoise",
+	// Raccourci pour déclarer une méthode.
+	salutation() {
+		return `Allô ! Mon nom est ${this.nom}.`;
+	},
+};
+
+const personne7 = {
+	nom: "Franz",
+	// Raccourci pour déclarer une méthode.
+	salutation() {
+		return `Allô ! Mon nom est ${this.nom}.`;
+	},
+};
 
 // Il n'est pas très efficace. Non seulement faut-il se répéter, mais il faut se
 // rappeler de changer les 2 objets si nous désirons leur ajouter une propriété.
@@ -97,6 +174,17 @@
 //
 // On peut faire cela à l'aide d'une fonction :
 
+function creerPersonne(nom) {
+	const obj = {};
+	obj.nom = nom;
+	obj.salutation = function () {
+		return `Allô ! Mon nom est ${obj.nom}.`;
+	};
+	return obj;
+}
+
+const albert = creerPersonne("Albert");
+const laurence = creerPersonne("Laurence");
 
 // Une manière moins verbeuse de faire la même chose est d'utiliser un
 // *constructeur*. Un constructeur est une fonction appelée avec la mot clé
@@ -110,6 +198,15 @@
 // Un constructeur est conventionnellement appelé selon l'objet qu'il crée, et
 // commence avec une lettre majuscule.
 
+function Personne(nom) {
+	this.nom = nom;
+	this.salutation = function () {
+		return `Allô ! Mon nom est ${this.nom}.`;
+	};
+}
+
+const anya = new Personne("Anya");
+const paul = new Personne("Paul");
 
 ////////////////////////////////////////////////////////////////////////////////
 // RESSOURCES
