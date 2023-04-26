@@ -16,6 +16,14 @@
 // `Personne()`, qui est `Object`. On voit ici une mise en œuvre de la chaine de
 // prototypage.
 
+function Personne(nom) {
+	this.nom = nom;
+	this.salutation = function () {
+		return `Je m'appelle ${this.nom}.`;
+	};
+}
+
+const personne1 = new Personne("Régine");
 
 // Voici ce qui se passe :
 //
@@ -55,6 +63,11 @@
 //    Voyons plutôt l'attribut `prototype` d'`Object`.
 // 3. Modifions l'attribut prototype en lui ajoutant une nouvelle méthode.
 
+Personne.prototype.auRevoir = function () {
+	return `Au revoir ${this.nom}`;
+};
+
+const personne2 = new Personne("Esteban");
 
 ////////////////////////////////////////////////////////////////////////////////
 // RESSOURCES
