@@ -9,7 +9,6 @@
 // - les classes et instances
 // - l'héritage
 // - l'encapsulation
-//
 
 ////////////////////////////////////////////////////////////////////////////////
 // CLASSES ET INSTANCES
@@ -17,6 +16,9 @@
 // Lorsqu'on modélise un problème sous la forme d'objets, on crée des
 // définitions abstraites qui représentent les types d'objet qui existent dans
 // le système.
+//
+// On utilise des classes lorsqu'on souhaite créer des objets qui stockent leurs
+// propres données, et exposent des fonctionnalités liées à celles-ci.
 //
 ///////////////////////////////
 // EXEMPLE DÉFINITION DE CLASSE
@@ -36,10 +38,34 @@
 //
 // Toute seule, une classe ne fait rien. Il s'agit d'un *modèle* pour créer des
 // objets. Chaque enseignant qu'on créera à partir de ce modèle sera appelé une
-// *instance* de la classe Enseignant. Le processus de création d'une instance
-// est réalisé par une fonction spéciale appelée *constructeur*. On passera des
-// valeurs au constructeur pour initialiser l'état interne de l'instance.
+// *instance* de la classe Enseignant.
+//
+// Le processus de création d'une instance est réalisé par une fonction spéciale
+// appelée *constructeur*. On passera des valeurs au constructeur pour
+// initialiser l'état interne de l'instance.
 
+class Enseignant {
+	// propriétés (facultatif)
+	nom;
+	sujet;
+
+	// constructeur
+	constructor(nom, sujet) {
+		this.nom = nom;
+		this.sujet = sujet;
+	}
+
+	// méthodes
+	sePresenter() {
+		return `Mon nom est ${this.nom} et j'enseigne le ${this.sujet}.`;
+	}
+	noter() {
+		return "100%";
+	}
+}
+
+const maxime = new Enseignant("Maxime", "design");
+const juliette = new Enseignant("Juliette", "français");
 
 ////////////////////////////////////////////////////////////////////////////////
 // HÉRITAGE
@@ -68,6 +94,22 @@
 // notre modèle en définissant une nouvelle classe, `Personne`, où on définit les
 // propriétés communes à toutes les personnes.
 
+class Personne {
+	// propriété (facultatif)
+	nom;
+
+	// constructeur
+	constructor(nom) {
+		this.nom = nom;
+	}
+
+	// méthode
+	sePresenter() {
+		return `Je m'appelle ${this.nom}.`;
+	}
+}
+
+const roger = new Personne("Roger");
 
 // Ensuite, les deux classes `Enseignant` et `Eleve` peuvent *dériver* de la
 // classe `Personne`, et ajouter leurs propriétés supplémentaires
@@ -83,6 +125,39 @@
 // méthode d'une classe enfant remplace l'implémentation de sa classe parente,
 // on dit qu'elle *surcharge* la version de la classe parente.
 
+class EleveV1 extends Personne {
+	// propriétés (facultatif)
+	annee;
+
+	// constructeur
+	constructor(nom, annee) {
+		super(nom);
+		this.annee = annee;
+	}
+
+	// méthode
+	sePresenter() {
+		return `Je m'appelle ${this.nom} et je suis en ${this.annee}e.`;
+	}
+}
+
+class ProfesseurV2 extends Personne {
+	// propriétés (facultatif)
+	sujet;
+
+	// constructeur
+	constructor(nom, sujet) {
+		super(nom);
+		this.sujet = sujet;
+	}
+
+	sePresenter() {
+		return `Je m'appelle ${this.nom} et j'enseigne le ${this.sujet}.`;
+	}
+}
+
+const william = new EleveV1("William", 5);
+const bob = new ProfesseurV2("Bob", "génie");
 
 ////////////////////////////////////////////////////////////////////////////////
 // ENCAPSULATION
@@ -107,6 +182,9 @@
 // propriété `année` pour que le code externe puisse la consulter et décider si
 // l'élève peut s'inscrire au cours.
 
+if (william.annee > 2) {
+	// Autorisé à étudier le tir à l'arc
+}
 
 // Si on décide de changer le critère d'autorisation (par exemple en demandant
 // la permission d'un parent), il faudrait alors mettre à jour tous les endroits
@@ -121,6 +199,26 @@
 // certaines propriétés et méthodes comme étant privées. En Javascript, les
 // membres privés d'un objet sont précédés d'un croisillon `#`.
 
+class EleveV2 extends Personne {
+	// propriétés (facultatif)
+	#annee;
+
+	// constructeur
+	constructor(nom, annee) {
+		super(nom);
+		this.#annee = annee;
+	}
+
+	// méthodes
+	sePresenter() {
+		return `Je m'appelle ${this.nom} et je suis en ${this.#annee}e.`;
+	}
+	peutEtudierTirArc() {
+		return this.#annee > 2;
+	}
+}
+
+const ginette = new EleveV2("Ginette", 1);
 
 ////////////////////////////////////////////////////////////////////////////////
 // ACCESSEUR ET MUTATEUR
@@ -139,6 +237,34 @@
 // En utilisant un mutateur, il sera facile, dans le futur, d'ajouter une
 // validation à notre code.
 
+class EleveV3 extends Personne {
+	// propriétés (facultatif)
+	#annee;
+
+	// constructeur
+	constructor(nom, annee) {
+		super(nom);
+		this.#annee = annee;
+	}
+
+	// méthodes
+	sePresenter() {
+		return `Je m'appelle ${this.nom} et je suis en ${this.#annee}e.`;
+	}
+	peutEtudierTirArc() {
+		return this.#annee > 2;
+	}
+	// mutateur
+	set mettreAJourAnnee(nouvelleAnnee) {
+		// validation
+		if (nouvelleAnnee > this.#annee) {
+			this.#annee = nouvelleAnnee;
+		}
+		return this.#annee;
+	}
+}
+
+const constance = new EleveV3("Constance", 1);
 
 ////////////////////////////////////////////////////////////////////////////////
 // RESSOURCES
@@ -149,4 +275,6 @@
 //   Classes_in_JavaScript
 // - https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/
 //   Working_with_objects
+// - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/
+//   Using_classes
 // - https://getkirby.com/docs/cookbook/templating/understanding-oop
