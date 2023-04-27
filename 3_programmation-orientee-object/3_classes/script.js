@@ -44,6 +44,29 @@
 // appelée *constructeur*. On passera des valeurs au constructeur pour
 // initialiser l'état interne de l'instance.
 
+class Enseignant {
+	// propriétés (facultatif)
+	nom;
+	sujet;
+
+	// constructeur
+	constructor(nom, sujet) {
+		this.nom = nom;
+		this.sujet = sujet;
+	}
+
+	// méthodes
+	sePresenter() {
+		return `Mon nom est ${this.nom} et j'enseigne le ${this.sujet}.`;
+	}
+	noter() {
+		return "100%";
+	}
+}
+
+const maxime = new Enseignant("Maxime", "design");
+const juliette = new Enseignant("Juliette", "français");
+
 ////////////////////////////////////////////////////////////////////////////////
 // HÉRITAGE
 //
@@ -71,6 +94,23 @@
 // notre modèle en définissant une nouvelle classe, `Personne`, où on définit les
 // propriétés communes à toutes les personnes.
 
+class Personne {
+	// propriété (facultatif)
+	nom;
+
+	// constructeur
+	constructor(nom) {
+		this.nom = nom;
+	}
+
+	// méthode
+	sePresenter() {
+		return `Je m'appelle ${this.nom}.`;
+	}
+}
+
+const roger = new Personne("Roger");
+
 // Ensuite, les deux classes `Enseignant` et `Eleve` peuvent *dériver* de la
 // classe `Personne`, et ajouter leurs propriétés supplémentaires
 //
@@ -84,6 +124,40 @@
 // *polymorphisme* (du grec polu- « plusieurs » et morphê « forme »). Lorsqu'une
 // méthode d'une classe enfant remplace l'implémentation de sa classe parente,
 // on dit qu'elle *surcharge* la version de la classe parente.
+
+class EleveV1 extends Personne {
+	// propriétés (facultatif)
+	annee;
+
+	// constructeur
+	constructor(nom, annee) {
+		super(nom);
+		this.annee = annee;
+	}
+
+	// méthode
+	sePresenter() {
+		return `Je m'appelle ${this.nom} et je suis en ${this.annee}e.`;
+	}
+}
+
+class ProfesseurV2 extends Personne {
+	// propriétés (facultatif)
+	sujet;
+
+	// constructeur
+	constructor(nom, sujet) {
+		super(nom);
+		this.sujet = sujet;
+	}
+
+	sePresenter() {
+		return `Je m'appelle ${this.nom} et j'enseigne le ${this.sujet}.`;
+	}
+}
+
+const william = new EleveV1("William", 5);
+const bob = new ProfesseurV2("Bob", "génie");
 
 ////////////////////////////////////////////////////////////////////////////////
 // ENCAPSULATION
@@ -108,6 +182,10 @@
 // propriété `année` pour que le code externe puisse la consulter et décider si
 // l'élève peut s'inscrire au cours.
 
+if (william.annee > 2) {
+	// Autorisé à étudier le tir à l'arc
+}
+
 // Si on décide de changer le critère d'autorisation (par exemple en demandant
 // la permission d'un parent), il faudrait alors mettre à jour tous les endroits
 // du code qui réalisent ce test.
@@ -120,6 +198,27 @@
 // On peut même empêcher l'accès à l'état interne de notre objet en marquant
 // certaines propriétés et méthodes comme étant privées. En Javascript, les
 // membres privés d'un objet sont précédés d'un croisillon `#`.
+
+class EleveV2 extends Personne {
+	// propriétés (facultatif)
+	#annee;
+
+	// constructeur
+	constructor(nom, annee) {
+		super(nom);
+		this.#annee = annee;
+	}
+
+	// méthodes
+	sePresenter() {
+		return `Je m'appelle ${this.nom} et je suis en ${this.#annee}e.`;
+	}
+	peutEtudierTirArc() {
+		return this.#annee > 2;
+	}
+}
+
+const ginette = new EleveV2("Ginette", 1);
 
 ////////////////////////////////////////////////////////////////////////////////
 // ACCESSEUR ET MUTATEUR
@@ -137,6 +236,35 @@
 //
 // En utilisant un mutateur, il sera facile, dans le futur, d'ajouter une
 // validation à notre code.
+
+class EleveV3 extends Personne {
+	// propriétés (facultatif)
+	#annee;
+
+	// constructeur
+	constructor(nom, annee) {
+		super(nom);
+		this.#annee = annee;
+	}
+
+	// méthodes
+	sePresenter() {
+		return `Je m'appelle ${this.nom} et je suis en ${this.#annee}e.`;
+	}
+	peutEtudierTirArc() {
+		return this.#annee > 2;
+	}
+	// mutateur
+	set mettreAJourAnnee(nouvelleAnnee) {
+		// validation
+		if (nouvelleAnnee > this.#annee) {
+			this.#annee = nouvelleAnnee;
+		}
+		return this.#annee;
+	}
+}
+
+const constance = new EleveV3("Constance", 1);
 
 ////////////////////////////////////////////////////////////////////////////////
 // RESSOURCES
