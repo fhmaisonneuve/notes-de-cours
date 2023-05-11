@@ -34,12 +34,10 @@
 //////////
 // EXEMPLE
 
-import { name, draw } from "./modules/export.js";
 
 // Une fois les fonctionnalités importées dans le script, vous pouvez utiliser
 // les valeurs dans votre script.
 
-console.log(name);
 
 ////////////////////////////////////////////////////////////////////////////////
 // DIFFÉRENCES ENTRE LES MODULES ET LES SCRIPTS « CLASSIQUES »
@@ -78,7 +76,6 @@ console.log(name);
 //
 // Voir le fichier `default` dans le dossier `module`.
 
-import salutation from "./modules/default.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 // RESSOURCES
